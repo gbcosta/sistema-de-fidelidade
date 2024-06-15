@@ -1,11 +1,16 @@
-import { SideMenu } from "@components/sideMenu";
+import { HeroSection } from "./heroSection";
+import { Form } from "@components/form";
+import { Footer } from "@components/footer";
 
 function App() {
   return (
     <>
       <div className="flex flex-row">
-        <SideMenu />
-        <div className=""></div>
+        <div className="">
+          <HeroSection />
+          <Form />
+          <Footer />
+        </div>
       </div>
     </>
   );
