@@ -3,7 +3,7 @@ import { MdOutlineMail } from "react-icons/md";
 import { BsGeoAlt } from "react-icons/bs";
 
 const Link = ({ children }: { children: string }) => {
-  return <a className="text-zinc-300">{children}</a>;
+  return <a className="text-zinc-300 cursor-pointer">{children}</a>;
 };
 
 export const Footer = () => {
@@ -50,7 +50,7 @@ export const Footer = () => {
           </div>
           <div className="flex flex-row gap-1 items-center">
             <BsGeoAlt className="text-white text-lg min-w-[18px]" />
-            <a className="max-w-[300px]">
+            <a className="max-w-[200px]">
               R. dos Andradas, 1234 - 7o andar - Centro Histórico, Porto Alegre
               - RS, 90020-008
             </a>
@@ -58,7 +58,7 @@ export const Footer = () => {
         </div>
       </div>
       <div className="bg-white min-h-[1px] mt-8 w-full"></div>
-      <p className="mt-8 text-sm">
+      <p className="mt-8 text-sm text-center">
         © Copyright 2024 , All Rights Reserved by CATIVA OPERADORA
       </p>
     </div>

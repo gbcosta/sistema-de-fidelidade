@@ -1,4 +1,5 @@
 import image from "@assets/lisboa.jpg";
+import { ChangeEvent, useState } from "react";
 
 const Field = ({
   type,
@@ -11,16 +12,24 @@ const Field = ({
   placeholder: string;
   children: string;
 }) => {
+  const [value, setValue] = useState("");
   return (
     <div className="flex flex-col w-full gap-4">
       <label className="text-dm font-bold text-blue-900" htmlFor={id}>
         {children}
       </label>
       <input
-        className="w-full p-3 text-md rounded-md"
+        required
+        className="w-full p-3 text-md rounded-md border-2 border-transparent
+        focus:outline-none focus:border-2 focus:border-blue-900"
         type={type}
+        autoComplete="on"
         id={id}
         placeholder={placeholder}
+        value={value}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+          setValue(event.target.value);
+        }}
       ></input>
     </div>
   );
@@ -36,18 +45,39 @@ export const Form = () => {
         <h1 className="text-blue-900 font-extrabold text-4xl mb-10 text-center mt-4">
           Cadatre sua Agência
         </h1>
-        <form className="w-full flex justify-center">
-          <div className="w-full max-w-[450px] flex flex-col gap-4">
-            <Field type="text" id="nome" placeholder="Nome da Agência">
+        <form
+          className="w-full flex justify-center"
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            const target = e.target as typeof e.target & {
+              email: { value: string };
+              numero: { value: string };
+              name: { value: string };
+            };
+            const data = {
+              email: target.email,
+              numero: target.email,
+              name: target.email,
+            };
+          }}
+        >
+          <div
+            className="w-full max-w-[450px] flex flex-col gap-4"
+            id="container"
+          >
+            <Field type="text" id="name" placeholder="Nome da Agência">
               Nome da Agência
             </Field>
-            <Field type="Email" id="Email" placeholder="Email">
+            <Field type="Email" id="email" placeholder="Email">
               Email
             </Field>
-            <Field type="tel" id="Número" placeholder="(XX) XXXX-XXXX">
+            <Field type="tel" id="numero" placeholder="(XX) XXXX-XXXX">
               Número para Contato
             </Field>
-            <button className="bg-blue-900 text-white text-xl py-4 font-bold rounded-md mt-4">
+            <button
+              className="bg-blue-900 text-white text-xl py-4 font-bold rounded-md mt-4"
+              type="submit"
+            >
               Cadastrar
             </button>
           </div>
