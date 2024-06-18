@@ -7,6 +7,7 @@ const Link = ({ children }: { children: string }) => {
 };
 
 export const Footer = () => {
+  console.log(import.meta.env);
   return (
     <div className="w-full bg-blue-900 text-white py-8 flex justify-center items-center px-1  md:px-8 flex-col">
       <div className="grid grid-cols-2 md:grid-cols-4 max-w-screen-lg px-4">

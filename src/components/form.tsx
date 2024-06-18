@@ -1,42 +1,55 @@
 import image from "@assets/lisboa.jpg";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
+import { addAgencie } from "@firebaseApp/firebase.ts";
+import { Field } from "@components/field.tsx";
+import { Modal } from "@components/modal.tsx";
 
-const Field = ({
-  type,
-  id,
-  placeholder,
-  children,
-}: {
-  type: string;
-  id: string;
-  placeholder: string;
-  children: string;
-}) => {
-  const [value, setValue] = useState("");
-  return (
-    <div className="flex flex-col w-full gap-4">
-      <label className="text-dm font-bold text-blue-900" htmlFor={id}>
-        {children}
-      </label>
-      <input
-        required
-        className="w-full p-3 text-md rounded-md border-2 border-transparent
-        focus:outline-none focus:border-2 focus:border-blue-900"
-        type={type}
-        autoComplete="on"
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => {
-          setValue(event.target.value);
-        }}
-      ></input>
-    </div>
-  );
-};
 export const Form = () => {
+  const [clear, setClear] = useState(false);
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const target = e.target as typeof e.target & {
+      email: { value: string };
+      numero: { value: string };
+      name: { value: string };
+    };
+
+    addAgencie({
+      email: target.email.value,
+      number: target.numero.value,
+      name: target.name.value,
+    }).then((data) => {
+      const input = document.getElementById("numero");
+      const errorMessage = document.getElementById("numberError");
+
+      if (data == "numberError") {
+        input?.classList.add("border-red-500");
+        errorMessage?.classList.remove("hidden");
+        errorMessage?.classList.add("flex");
+        return;
+      }
+
+      if (data) {
+        console.log("Erro ao processar requisição");
+        return;
+      }
+
+      input?.classList.remove("border-red-500");
+      errorMessage?.classList.add("hidden");
+      errorMessage?.classList.remove("flex");
+
+      setClear(true);
+      document.getElementById("modal")?.classList.remove("hidden");
+    });
+  };
+
   return (
-    <div className="flex min-h-[600px] flex-col-reverse md:flex-row md:h-screen bg-yellow-500">
+    <div
+      id="register"
+      className="flex min-h-[600px] flex-col-reverse md:flex-row md:h-screen bg-yellow-500"
+    >
+      <Modal />
       <img
         src={image}
         className="md:h-screen object-cover md:w-4/12 mt-10 md:mt-0 md:min-h-[600px]"
@@ -45,33 +58,38 @@ export const Form = () => {
         <h1 className="text-blue-900 font-extrabold text-4xl mb-10 text-center mt-4">
           Cadatre sua Agência
         </h1>
-        <form
-          className="w-full flex justify-center"
-          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            const target = e.target as typeof e.target & {
-              email: { value: string };
-              numero: { value: string };
-              name: { value: string };
-            };
-            const data = {
-              email: target.email,
-              numero: target.email,
-              name: target.email,
-            };
-          }}
-        >
+        <form className="w-full flex justify-center" onSubmit={onSubmit}>
           <div
             className="w-full max-w-[450px] flex flex-col gap-4"
             id="container"
           >
-            <Field type="text" id="name" placeholder="Nome da Agência">
+            <Field
+              type="text"
+              id="name"
+              placeholder="Nome da Agência"
+              clear={clear}
+              setClear={setClear}
+            >
               Nome da Agência
             </Field>
-            <Field type="Email" id="email" placeholder="Email">
+            <Field
+              type="Email"
+              id="email"
+              placeholder="Email"
+              clear={clear}
+              setClear={setClear}
+            >
               Email
             </Field>
-            <Field type="tel" id="numero" placeholder="(XX) XXXX-XXXX">
+            <Field
+              type="tel"
+              id="numero"
+              placeholder="(XX) XXXX-XXXX"
+              errorMessage="Número Inválido"
+              errorId="numberError"
+              clear={clear}
+              setClear={setClear}
+            >
               Número para Contato
             </Field>
             <button

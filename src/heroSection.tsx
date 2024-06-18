@@ -6,7 +6,7 @@ export const HeroSection = () => {
       <div className="flex w-full md:w-8/12 p-4 md:p-8 flex-col">
         <nav className="">
           <p className="text-4xl font-bold">
-            Cativa Operadora
+            <span className="text-yellow-500">Cativa</span> Operadora
             <span className="text-yellow-500">.</span>
           </p>
         </nav>
@@ -15,7 +15,7 @@ export const HeroSection = () => {
             <p className="text-4xl md:text-5xl lg:text-6xl font-bold mt-10">
               Pacotes de Viagem Personalizados para Todos os Destinos
             </p>
-            <div className="w-20 h-2 bg-yellow-500 my-4"></div>
+            <div className="w-20 h-2 bg-yellow-500 my-4" />
             <p className="text-xl mb-10">
               O sistema de fidelidade da Cativa Operadora é um programa
               exclusivo criado para recompensar os nossos clientes frequentes.
@@ -23,7 +23,14 @@ export const HeroSection = () => {
               trocados por descontos, upgrades e benefícios exclusivos em
               futuras viagens. Cadastre sua agência
             </p>
-            <button className="p-3 bg-yellow-500 text-2xl rounded-md text-white font-bold shadow">
+            <button
+              onClick={() => {
+                document
+                  .getElementById("register")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="p-3 bg-yellow-500 text-2xl rounded-md text-white font-bold shadow"
+            >
               Cadastre-se
             </button>
           </div>
