@@ -52,6 +52,7 @@ export const Form = () => {
       <Modal />
       <img
         src={image}
+        alt="Lisboa"
         className="md:h-screen object-cover md:w-4/12 mt-10 md:mt-0 md:min-h-[600px]"
       />
       <div className="w-full flex justify-center items-center flex-col p-2">

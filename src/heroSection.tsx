@@ -5,10 +5,10 @@ export const HeroSection = () => {
     <div className="flex md:h-screen w-full bg-blue-900 text-white md:flex-row flex-col min-h-[600px]">
       <div className="flex w-full md:w-8/12 p-4 md:p-8 flex-col">
         <nav className="">
-          <p className="text-4xl font-bold">
+          <h1 className="text-4xl font-bold">
             <span className="text-yellow-500">Cativa</span> Operadora
             <span className="text-yellow-500">.</span>
-          </p>
+          </h1>
         </nav>
         <header className="flex flex-col h-full justify-center gap-10 container">
           <div className="w-full">
@@ -38,6 +38,7 @@ export const HeroSection = () => {
       </div>
       <img
         src={image}
+        alt="tahiti"
         className="md:h-screen object-cover md:w-4/12 mt-10 md:mt-0 md:min-h-[600px]"
       />
     </div>
