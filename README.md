@@ -1,4 +1,4 @@
-# Show Movies
+# sistema-de-fidelidade
 
 Esta landing page foi desenvolvida para o teste da Cativa Operadora.
 
